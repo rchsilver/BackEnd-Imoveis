@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.scheduleRoute = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+const schedule_schema_1 = require("../schemas/schedule.schema");
+const scheduleRoute = (0, express_1.Router)();
+exports.scheduleRoute = scheduleRoute;
+scheduleRoute.post("", middlewares_1.ensureTokenIsValidMiddleware, (0, middlewares_1.ensureDataIsValidMiddleware)(schedule_schema_1.scheduleSchemaRequest), controllers_1.createScheduleController);
+scheduleRoute.get("/realEstate/:id", middlewares_1.ensureTokenIsValidMiddleware, middlewares_1.ensureTokenIsAdminMiddleware, controllers_1.listSchedulesOfRealEstateController);
